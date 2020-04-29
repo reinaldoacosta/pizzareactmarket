@@ -16,7 +16,7 @@ export default class Checkout extends React.Component {
             logged: props.logged,
             clear: props.clear
         }
-        
+
         this.company = React.createRef()
         this.name = React.createRef()
         this.lastname = React.createRef()
@@ -53,7 +53,7 @@ export default class Checkout extends React.Component {
                 if (response.data.result == 'success') {
                     this.setState({
                         confirmed: true
-                    })                    
+                    })
                     this.state.clear()
                     localStorage.removeItem('cart')
                 }
@@ -62,6 +62,10 @@ export default class Checkout extends React.Component {
             this.state.clear()
             localStorage.removeItem('cart')
         }
+    }
+
+    componentWillReceiveProps(props) {
+        this.setState({ currency: props.currency })
     }
 
     render() {
@@ -107,7 +111,7 @@ export default class Checkout extends React.Component {
                                 <div className='uk-padding-small uk-card uk-card-default'>
                                     <div className='uk-text-lead'>
                                         <span>{this.state.items} items</span><br />
-                                        <span>Subtotal: {this.state.currency}{this.state.total}</span>
+                                        <span>Subtotal: {this.state.currency}{this.state.currency == '€' ? (+(+this.state.total * 0.94) + (6 * 0.94)).toFixed(2) : (+(+this.state.total) + 6).toFixed(2)}</span>
                                     </div>
                                     <hr className='uk-hr' />
                                     <button type='submit' className='uk-button uk-display-block uk-margin-auto uk-button-primary rdbtn uk-border-rounded'>Confirm & Pay</button>

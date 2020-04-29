@@ -132,7 +132,6 @@ class Pizza extends React.Component {
     }
 
     removeItem(id, amount) {
-        console.log(amount)
         let cart = this.state.cart,
             orders = this.state.orders
         if (((+orders[id].amount) - 1) == 0) {
