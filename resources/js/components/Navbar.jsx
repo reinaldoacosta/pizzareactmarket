@@ -32,7 +32,7 @@ class Navbar extends React.Component {
                         <img src='/images/menu.png' style={{ maxWidth: '45px' }} className='menu-logo' /> Menu
                     </Link>
                 </div>
-                <div className='uk-navbar-center'>
+                <div className='uk-navbar-center uk-visible@m'>
                     <Link to='/' className='uk-navbar-item uk-logo'>
                         <img src="/images/logo.png" />
                     </Link>
@@ -86,7 +86,7 @@ class Navbar extends React.Component {
                     </div>
                     <div className='uk-hidden@m'>
                         <ul className="uk-navbar-nav">
-                            <li className="uk-active"><a href="#" uk-icon='icon:menu'></a></li>
+                            <li className="uk-active"><a uk-toggle="target: #offcanvas-flip" href="#" uk-icon='icon:menu'></a></li>
                         </ul>
                     </div>
                 </div>

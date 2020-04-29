@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { Link } from 'react-router-dom'
 import 'uikit/dist/css/uikit.min.css'
 import '../../css/styles.css'
 
@@ -145,7 +146,7 @@ class Pizza extends React.Component {
             cart.items = 0
             localStorage.cart = JSON.stringify({ currency: this.state.cart.currency, total: 0, items: 0 })
         } else {
-            cart.items = (+cart.items) - 1            
+            cart.items = (+cart.items) - 1
             cart.total = +(Math.round((this.state.cart.currency == '$' ? (+cart.total) - (+amount) : (+(+cart.total) - (+amount)) * 0.94) + "e+" + 2) + "e-" + 2)
             localStorage.cart = JSON.stringify(cart)
         }
@@ -197,6 +198,56 @@ class Pizza extends React.Component {
                                     <Orders logged={this.state.logged} items={this.state.menuItems} />
                                 </Route>
                             </Switch>
+                            <div id="offcanvas-flip" uk-offcanvas="flip: true; overlay: true">
+                                <div className="uk-offcanvas-bar">
+
+                                    <button className="uk-offcanvas-close" type="button" uk-close='trues'></button>
+
+                                    <h3>Reinaldo's Pizzas</h3>
+
+                                    <ul className="uk-nav uk-nav-primary uk-nav-center uk-margin-auto-vertical">
+                                        <li className="uk-active"><Link to='/'>View Menu</Link></li>
+                                        {
+                                            this.state.logged ?
+                                                <React.Fragment>
+                                                    <li><Link to="/orders">Orders</Link></li>
+                                                    <li><a href="/logout">Logout</a></li>
+                                                </React.Fragment>
+                                                : <li className="uk-active"><Link to='/account'>Access</Link></li>
+                                        }
+                                        <li className="uk-parent">
+                                            <div uk-grid='true' className='uk-grid-collapse'>
+                                                <div className='uk-width-1-1 uk-flex uk-flex-center uk-position-relative'>
+                                                    <Link to="/cart/">
+                                                        <span uk-icon="icon:cart;ratio:2">
+                                                            {this.state.cart.items > 0 ? <span className='iac mob'>{this.state.cart.items}</span> : null}
+                                                        </span>
+                                                    </Link>
+                                                </div>
+                                                <div className='uk-width-1-1 uk-flex uk-flex-center'>
+                                                    <div className='uk-margin-small-left'>{this.state.cart.currency}{this.state.cart.total > 0 ? (this.state.cart.currency == '€' ? (+(+this.state.cart.total * 0.94) + (6 * 0.94)).toFixed(2) : (+(+this.state.cart.total) + (6)).toFixed(2)) : this.state.cart.total}</div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li className="uk-nav-divider"></li>
+                                        <li className='uk-inline'>
+                                            <span className='uk-margin-right uk-text-lead hand' onClick={
+                                                e => {
+                                                    e.preventDefault()
+                                                    this.setCurrency('$')
+                                                }
+                                            }>$</span>
+                                            <span className='uk-margin-left uk-text-lead hand' onClick={
+                                                e => {
+                                                    e.preventDefault()
+                                                    this.setCurrency('€')
+                                                }
+                                            }>€</span>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
                         </div>
                     </Router>
                 </React.Fragment>

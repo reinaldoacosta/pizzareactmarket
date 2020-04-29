@@ -88,7 +88,7 @@ export default class Access extends React.Component {
             )
         } else {
             return (
-                <div className='uk-child-width-1-2 uk-grid-collapse uk-margin-auto uk-width-3-5 uk-text-center' uk-grid='true'>
+                <div className='uk-child-width-1-2@m uk-grid-collapse uk-margin-auto uk-width-3-5 uk-text-center' uk-grid='true'>
                     <div>
                         <div>
                             <h4>Login to view your orders</h4>

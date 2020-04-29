@@ -1,18 +1,23 @@
 img {
     user-select: none;
 }
+
 .item-title {
     color: #e52a33 !important
 }
+
 .rdbtn, .rdbtn:hover, .rdbtn:active, .rdbtn:focus {
     background-color: rgb(237, 20, 61);
 }
+
 .adjust-orders {
     max-width: 90px;
 }
+
 .hand {
     cursor: pointer;
 }
+
 .menu-logo {
     -webkit-transform: rotate(-14deg);
     -moz-transform: rotate(-14deg);
@@ -20,9 +25,11 @@ img {
     -o-transform: rotate(-14deg);
     transform: rotate(-14deg);
 }
+
 .uk-navbar-container * {
     color: #000 !important
 }
+
 .iac {
     background-color: #385499;
     border-radius: 2px;
@@ -36,4 +43,8 @@ img {
     height: 14px;
     line-height: 14px;
     z-index: 1;
+}
+
+.iac.mob {
+    right: inherit
 }
