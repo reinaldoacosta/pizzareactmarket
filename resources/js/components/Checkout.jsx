@@ -59,12 +59,26 @@ export default class Checkout extends React.Component {
                 }
             })
         } else {
-            this.state.clear()
-            localStorage.removeItem('cart')
+            axios.post('/order/place', data).then(response => {
+                if (response.data.result == 'success') {
+                    this.setState({
+                        confirmed: true
+                    })
+                    this.state.clear()
+                    localStorage.removeItem('cart')
+                }
+            })
         }
     }
 
+    componentDidMount(){
+        if (this.state.items == 0) {
+            window.location.href = '/'
+        }        
+    }
+
     componentWillReceiveProps(props) {
+        console.log(this.state);
         this.setState({ currency: props.currency })
     }
 
@@ -126,7 +140,7 @@ export default class Checkout extends React.Component {
             return (
                 <div className='uk-text-center'>
                     <h2>Congratulations, your order has been processed and should be on its way to be delivered in 15 minutes!</h2>
-                    <p className='uk-text-bold uk-text-lead'>Click <Link to='/orders/'>here</Link> to view your order history.</p>
+                    {this.state.logged ? <p className='uk-text-bold uk-text-lead'>Click <Link to='/orders/'>here</Link> to view your order history.</p> : null}
                 </div>
             )
         }

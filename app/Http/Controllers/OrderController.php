@@ -7,30 +7,24 @@ use App\User;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller {
+
     function process(Request $request) {
-        if ($request->session()->get('logged')) {
-            try {
-                if (Orders::create([
-                    'user_id' => $request->session()->get('userid'),
-                    'first_name' => $request->get('firstname'),
-                    'last_name' => $request->get('lastname'),
-                    'address' => $request->get('address'),
-                    'apt_number' => $request->get('apt'),
-                    'city' => $request->get('city'),
-                    'items' => $request->get('orders'),
-                    'amount' => $request->get('amount'),
-                ])) {
-                    return response(['result' => 'success']);
-                }
-            } catch (\Throwable $th) {
-                echo $th->getMessage();
+
+        try {
+            if (Orders::create([
+                'user_id' => ($request->session()->get('logged') ? $request->session()->get('userid') : 0 ) ,
+                'first_name' => $request->get('firstname'),
+                'last_name' => $request->get('lastname'),
+                'address' => $request->get('address'),
+                'apt_number' => $request->get('apt'),
+                'city' => $request->get('city'),
+                'items' => $request->get('orders'),
+                'amount' => $request->get('amount'),
+            ])) {
+                return response(['result' => 'success']);
             }
-            //return response($request->all());
-        } else {
-            return response([
-                'result' => 'error',
-                'message' => 'unlogged',
-            ]);
+        } catch (\Throwable $th) {
+            echo $th->getMessage();
         }
     }
 
